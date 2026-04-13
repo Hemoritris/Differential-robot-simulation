@@ -121,6 +121,13 @@ source install/setup.bash
 ros2 launch isaac_slam_navigation isaac_nav.launch.py
 ```
 
+> **Rviz2 可视化**：启动后添加以下显示项
+> - `Map` → 话题选择 `/map`（实时建图结果）
+> - `LaserScan` → 话题 `/scan`（激光雷达数据）
+> - `RobotModel`（机器人模型）
+> - `Path` 显示已经规划的路径
+> - `TF`（坐标变换：map → odom → base_link）
+
 暂停探索（不停止建图）：
 
 ```bash
@@ -134,6 +141,14 @@ source /opt/ros/humble/setup.bash
 source install/setup.bash
 ros2 launch isaac_slam_navigation isaac_nav_only.launch.py
 ```
+
+> **Rviz2 可视化**：启动后添加以下显示项
+> - `Map` → 话题 `/map`（预构建地图）
+> - `LaserScan` → 话题 `/scan`（激光雷达实时数据）
+> - `RobotModel`（机器人模型）
+> - `TF`（坐标变换：map → odom → base_link）
+> - `Path` 显示已经规划的路径
+> - 设置 `2D Goal Pose` 即可在地图上指定导航目标
 
 ## 关键参数说明 (`nav2_params.yaml`)
 
