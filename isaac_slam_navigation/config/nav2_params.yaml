@@ -1,0 +1,81 @@
+# =============================================================================
+# Nav2 参数配置文件
+#
+# 内容说明:
+#   controller_server: 路径跟踪控制器（Regulated Pure Pursuit）
+#   planner_server:    全局路径规划器（Navfn）
+#   bt_navigator:     行为树导航器
+#   velocity_smoother: 速度平滑器
+# =============================================================================
+
+controller_server:
+  ros__parameters:
+    use_sim_time: true
+    controller_frequency: 30.0              # 控制器执行频率 (Hz)，提高响应速度
+    progress_checker_plugin: "progress_checker"
+    goal_checker_plugins: ["general_goal_checker"]
+    controller_plugins: ["FollowPath"]
+
+    # 进度检查器：检测机器人是否在有效移动
+    progress_checker:
+      plugin: "nav2_controller::SimpleProgressChecker"
+      required_movement_radius: 0.15         # 减小：在窄通道中允许更小的移动距离
+      movement_time_allowance: 30.0         # 增加：给机器人在复杂环境中更多时间
+
+    # 目标检查器：判断是否到达目标点
+    general_goal_checker:
+      stateful: True
+      plugin: "nav2_controller::SimpleGoalChecker"
+      xy_goal_tolerance: 0.25              # 位置允许误差 (m)
+      yaw_goal_tolerance: 0.25              # 角度允许误差 (rad)
+
+    # 路径跟踪控制器：Regulated Pure Pursuit（带约束的纯追踪）
+    FollowPath:
+      plugin: "nav2_regulated_pure_pursuit_controller::RegulatedPurePursuitController"
+      desired_linear_vel: 0.6               # 降低线速度：在窄通道中更安全
+      lookahead_dist: 0.5                   # 减小前看距离：更适合狭窄环境
+      min_lookahead_dist: 0.4              # 减小最小前看距离
+      max_lookahead_dist: 0.9              # 减小最大前看距离
+      lookahead_time: 1.0                  # 减少前看时间：更响应局部障碍
+      rotate_to_heading_angular_vel: 4.0  # 旋转到路径朝向时的角速度 (rad/s)
+      transform_tolerance: 0.01            # TF查找容差 (s)
+      min_approach_velocity: 0.05          # 接近目标时的最小线速度
+      max_angular_vel: 5.0                 # 最大角速度限制
+      use_rotate_to_heading: true          # 启用旋转到朝向功能
+      # 新增：狭窄空间优化
+      min_vel_linear: 0.1                  # 最小线速度，防止完全停止
+
+planner_server:
+  ros__parameters:
+    expected_planner_frequency: 30.0      # 规划器执行频率 (Hz)
+    use_sim_time: true
+    planner_plugins: ["GridBased"]
+
+    # 网格路径规划器：使用 Dijkstra/A* 在栅格地图上搜索最短路径
+    GridBased:
+      plugin: "nav2_navfn_planner/NavfnPlanner"
+
+bt_navigator:
+  ros__parameters:
+    use_sim_time: true
+
+velocity_smoother:
+  ros__parameters:
+    use_sim_time: true
+
+amcl:
+  ros__parameters:
+    use_sim_time: true
+    min_particles: 500
+    max_particles: 2000
+    epsilon_gp: 0.05
+    kappa_gp: 0.05
+    diffusion_accel: 0.1
+    transform_tolerance: 0.5
+    update_min_d: 0.1
+    update_min_a: 0.05
+    resample_interval: 1
+    recovery_alpha_slow: 0.0
+    recovery_alpha_fast: 0.0
+    initial_pose: [0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
+    tf_broadcast: true
