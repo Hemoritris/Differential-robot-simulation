@@ -93,7 +93,7 @@ git clone https://github.com/Hemoritris/Differential-robot-simulation.git
 git clone https://github.com/robo-friends/m-explore-ros2.git
 
 cd ..
-colcon build --packages-select isaac_slam_navigation
+colcon build --packages-select isaac_slam_navigation explore_lite
 source install/setup.bash
 ```
 
