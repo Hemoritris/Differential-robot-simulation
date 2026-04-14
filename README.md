@@ -51,7 +51,9 @@ Differential-robot-simulation/
 │   └── my_map.posegraph               # 姿态图文件
 ├── USD/                               # Isaac Sim 仿真场景资产
 │   └── turtlebot3.usd                 # USD文件
-├── videos/demo.mp4                    # 运行效果视频
+├── vidoes/                             # 演示视频
+│   ├── Demo1.mp4                       # 建图+探索模式演示
+│   └── Demo2.mp4                       # 纯导航模式演示
 └── src/
     ├── isaac_slam_navigation/         # 本项目 ROS2 包 
     │   ├── config/nav2_params.yaml    # Nav2 导航参数配置
@@ -115,6 +117,9 @@ source install/setup.bash
 
 **建图 + 探索模式**（用于未知环境）：
 
+> **演示视频**：实时 SLAM 建图与自主探索
+> <video src="./vidoes/Demo1.mp4" width="640" controls></video>
+
 ```bash
 source /opt/ros/humble/setup.bash
 source install/setup.bash
@@ -135,6 +140,9 @@ ros2 topic pub /explore_node/resume std_msgs/Bool "data: false"
 ```
 
 **纯导航模式**（使用预构建地图）：
+
+> **演示视频**：基于预构建地图的自主定位与导航
+> <video src="./vidoes/Demo2.mp4" width="640" controls></video>
 
 ```bash
 source /opt/ros/humble/setup.bash
