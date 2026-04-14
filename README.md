@@ -117,7 +117,6 @@ source install/setup.bash
 
 **建图 + 探索模式**（用于未知环境）：
 
-![Demo1](./vidoes/Demo1.mp4)
 
 ```bash
 source /opt/ros/humble/setup.bash
@@ -140,7 +139,6 @@ ros2 topic pub /explore_node/resume std_msgs/Bool "data: false"
 
 **纯导航模式**（使用预构建地图）：
 
-![Demo2](./vidoes/Demo2.mp4)
 
 ```bash
 source /opt/ros/humble/setup.bash
