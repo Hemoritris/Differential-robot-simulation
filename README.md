@@ -117,8 +117,7 @@ source install/setup.bash
 
 **建图 + 探索模式**（用于未知环境）：
 
-> **演示视频**：实时 SLAM 建图与自主探索
-> <video src="./vidoes/Demo1.mp4" width="640" controls></video>
+![Demo1](./vidoes/Demo1.mp4)
 
 ```bash
 source /opt/ros/humble/setup.bash
@@ -141,8 +140,7 @@ ros2 topic pub /explore_node/resume std_msgs/Bool "data: false"
 
 **纯导航模式**（使用预构建地图）：
 
-> **演示视频**：基于预构建地图的自主定位与导航
-> <video src="./vidoes/Demo2.mp4" width="640" controls></video>
+![Demo2](./vidoes/Demo2.mp4)
 
 ```bash
 source /opt/ros/humble/setup.bash
